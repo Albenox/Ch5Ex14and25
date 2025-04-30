@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -76,10 +77,18 @@ void bubbleSort() {
 }
 
 void getStudents(int count) {
-    for (int i = 0; i < count; i++) {
-        string tempName;
-        cout << "Enter student name: " << endl;
-        getline(cin, tempName);
+    ifstream studentList("LineUp.txt");
+    int i = 0;
+    string tempName;
+    /*
+    if (!studentList) {
+        cerr << "Error: Could not open LineUp.txt" << endl;
+        exit(1); // stop the program or handle the error
+    }
+    */
+    while (i < count) {
+        getline(studentList, tempName);
         names[i] = tempName;
+        i++;
     }
 }
