@@ -3,7 +3,7 @@
     Programmer: Gabriel Inocentes
     Date: April 29, 2025
     Requirements:
-    Create a program that predicts the size of a population based on user input
+    Create a program that allows the user to input student names, then outputs an alphebetical order for them to line up in
 */
 
 
@@ -13,7 +13,9 @@
 
 using namespace std;
 
+//Declares function later to bubble sort names
 void bubbleSort();
+void getStudents(int count);
 
 //Vector to hold list of names
 vector<string> names;
@@ -30,6 +32,8 @@ int main() {
     //Loop to make sure inputs are within the set boundries, and resetting the cin if they are not
     while (cin.fail() || count < 1 || count > 25) {
         cin.clear();
+        //Okay, I give up on this part somewhat, no matter what I try to do, the first time you enter a non-integer input, this error reads twice as the cin refuses to be read... I do not know the code to fix this
+        cout << "Please enter a valid input greater than 1 and less than 25: " << endl << flush;
         cin >> count;
 
         //Clears the cache of inputs and resets the while loop
@@ -37,7 +41,6 @@ int main() {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             //Flush to ensure error message is output in cases of weird bugs when looping the while
-            cout << "Please enter a valid input greater than 1 and less than 25: " << flush;
         }
         else {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -49,13 +52,8 @@ int main() {
     names.resize(count);
 
     //Loop to add user input names to vector list
-    for (int i=0; i < count; i++) {
-        string tempName;
-        cout << "Enter student name: " << endl;
-        getline(cin, tempName);
-        names[i] = tempName;
-    }
-    
+    getStudents(count);
+
     //Sorts the vector through the bubbleSort function
     bubbleSort();
 
@@ -74,5 +72,14 @@ void bubbleSort() {
                 swap(names[x], names[x + 1]);
             }
         }
+    }
+}
+
+void getStudents(int count) {
+    for (int i = 0; i < count; i++) {
+        string tempName;
+        cout << "Enter student name: " << endl;
+        getline(cin, tempName);
+        names[i] = tempName;
     }
 }
